@@ -12,7 +12,7 @@ A simple web-based gyro spin tracker built with HTML, CSS, and JavaScript. It tr
 ## Usage
 
 ### Option 1: Use on GitHub Pages
-Visit [https://ddrmv.github.io/gyro-tracker-simple/](https://your-username.github.io/gyro-tracker-simple/) to use the tracker directly in your browser.
+Visit [https://ddrmv.github.io/gyro-tracker-simple/](https://ddrmv.github.io/gyro-tracker-simple/) to use the tracker directly in your browser.
 
 ### Option 2: Run Locally
 1. Download or clone this repository.
