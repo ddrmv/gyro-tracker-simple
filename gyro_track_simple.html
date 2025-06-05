@@ -11,11 +11,14 @@
         button { padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; }
         .decisecond { color: lightgrey; }
         .instructions { font-size: 14px; margin-bottom: 10px; }
+        .status-not-started { color: #e57373; } /* Medium red */
+        .status-running { color: #81c784; } /* Medium green */
+        .status-paused { color: #ffb300; } /* Orange */
     </style>
 </head>
 <body>
     <div id="timer">00:00:00<span class="decisecond">.0</span></div>
-    <div id="status">Not Started</div>
+    <div id="status" class="status-not-started">Not Started</div>
     <div class="instructions">("space" to start/pause, "enter" to complete spin)</div>
     <button onclick="startTimer()">Start</button>
     <button onclick="resetTimer()">Reset</button>
@@ -43,6 +46,7 @@
                 timerInterval = setInterval(updateTimer, 100);
                 isRunning = true;
                 statusElement.textContent = 'Running';
+                statusElement.className = 'status-running';
             }
         }
 
@@ -51,6 +55,7 @@
                 clearInterval(timerInterval);
                 isRunning = false;
                 statusElement.textContent = 'Paused';
+                statusElement.className = 'status-paused';
             }
         }
 
@@ -60,6 +65,7 @@
             elapsedTime = 0;
             document.getElementById('timer').innerHTML = '00:00:00<span class="decisecond">.0</span>';
             statusElement.textContent = 'Not Started';
+            statusElement.className = 'status-not-started';
         }
 
         document.addEventListener('keydown', (event) => {
