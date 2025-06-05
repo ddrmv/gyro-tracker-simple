@@ -14,18 +14,44 @@
         .status-not-started { color: #e57373; } /* Medium red */
         .status-running { color: #81c784; } /* Medium green */
         .status-paused { color: #ffb300; } /* Orange */
+        .button-container { margin-bottom: 30px; } /* Space below buttons */
+        table { margin: 0 auto; border-collapse: collapse; font-size: 16px; }
+        th, td { padding: 6px 16px; border: 1px solid #ddd; }
+        th { background-color: #f5f5f5; font-weight: bold; }
+        .total-row { font-weight: bold; background-color: #fafafa; }
     </style>
 </head>
 <body>
     <div id="timer">00:00:00<span class="decisecond">.0</span></div>
     <div id="status" class="status-not-started">Not Started</div>
     <div class="instructions">("space" to start/pause, "enter" to complete spin)</div>
-    <button onclick="startTimer()">Start</button>
-    <button onclick="resetTimer()">Reset</button>
+    <div class="button-container">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="completeTimer()">Complete</button>
+    </div>
+    <table id="spinTable">
+        <thead>
+            <tr>
+                <th>Spin Number</th>
+                <th>Spin Duration</th>
+            </tr>
+        </thead>
+        <tbody id="spinTableBody"></tbody>
+        <tfoot id="spinTableFoot">
+            <tr class="total-row">
+                <td>Total</td>
+                <td id="totalDuration">00:00:00<span class="decisecond">.0</span></td>
+            </tr>
+        </tfoot>
+    </table>
     <script>
         let startTime, elapsedTime = 0, timerInterval;
         let isRunning = false;
+        let spinCount = 0;
+        let totalDuration = 0;
         const statusElement = document.getElementById('status');
+        const spinTableBody = document.getElementById('spinTableBody');
+        const totalDurationElement = document.getElementById('totalDuration');
 
         function formatTime(ms) {
             let hours = Math.floor(ms / 3600000).toString().padStart(2, '0');
@@ -59,11 +85,22 @@
             }
         }
 
-        function resetTimer() {
+        function completeTimer() {
+            if (elapsedTime > 0) {
+                spinCount++;
+                totalDuration += elapsedTime;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${spinCount}</td>
+                    <td>${formatTime(elapsedTime)}</td>
+                `;
+                spinTableBody.appendChild(row);
+                totalDurationElement.innerHTML = formatTime(totalDuration);
+            }
             clearInterval(timerInterval);
             isRunning = false;
             elapsedTime = 0;
-            document.getElementById('timer').innerHTML = '00:00:00<span class="decisecond">.0</span>';
+            document.getElementById('timer').innerHTML = formatTime(0);
             statusElement.textContent = 'Not Started';
             statusElement.className = 'status-not-started';
         }
@@ -74,7 +111,7 @@
                 isRunning ? pauseTimer() : startTimer();
             } else if (event.code === 'Enter') {
                 event.preventDefault();
-                resetTimer();
+                completeTimer();
             }
         });
     </script>
