@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+}
+
+#timer {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+#status {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.decisecond {
+    color: lightgrey;
+}
+
+.instructions {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.status-not-started {
+    color: #e57373; /* Medium red */
+}
+
+.status-running {
+    color: #81c784; /* Medium green */
+}
+
+.status-paused {
+    color: #ffb300; /* Orange */
+}
+
+.button-container {
+    margin-bottom: 30px; /* Space below buttons */
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+th, td {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.total-row {
+    font-weight: bold;
+    background-color: #fafafa;
+}

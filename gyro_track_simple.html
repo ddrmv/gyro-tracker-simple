@@ -4,22 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gyro Tracker - Simple</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        #timer { font-size: 48px; margin-bottom: 20px; }
-        #status { font-size: 24px; margin-bottom: 20px; }
-        button { padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; }
-        .decisecond { color: lightgrey; }
-        .instructions { font-size: 14px; margin-bottom: 10px; }
-        .status-not-started { color: #e57373; } /* Medium red */
-        .status-running { color: #81c784; } /* Medium green */
-        .status-paused { color: #ffb300; } /* Orange */
-        .button-container { margin-bottom: 30px; } /* Space below buttons */
-        table { margin: 0 auto; border-collapse: collapse; font-size: 16px; }
-        th, td { padding: 6px 16px; border: 1px solid #ddd; }
-        th { background-color: #f5f5f5; font-weight: bold; }
-        .total-row { font-weight: bold; background-color: #fafafa; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="timer">00:00:00<span class="decisecond">.0</span></div>
@@ -44,76 +29,6 @@
             </tr>
         </tfoot>
     </table>
-    <script>
-        let startTime, elapsedTime = 0, timerInterval;
-        let isRunning = false;
-        let spinCount = 0;
-        let totalDuration = 0;
-        const statusElement = document.getElementById('status');
-        const spinTableBody = document.getElementById('spinTableBody');
-        const totalDurationElement = document.getElementById('totalDuration');
-
-        function formatTime(ms) {
-            let hours = Math.floor(ms / 3600000).toString().padStart(2, '0');
-            let minutes = Math.floor((ms % 3600000) / 60000).toString().padStart(2, '0');
-            let seconds = Math.floor((ms % 60000) / 1000).toString().padStart(2, '0');
-            let tenths = Math.floor((ms % 1000) / 100).toString();
-            return `${hours}:${minutes}:${seconds}<span class="decisecond">.${tenths}</span>`;
-        }
-
-        function updateTimer() {
-            elapsedTime = Date.now() - startTime;
-            document.getElementById('timer').innerHTML = formatTime(elapsedTime);
-        }
-
-        function startTimer() {
-            if (!isRunning) {
-                startTime = Date.now() - elapsedTime;
-                timerInterval = setInterval(updateTimer, 100);
-                isRunning = true;
-                statusElement.textContent = 'Running';
-                statusElement.className = 'status-running';
-            }
-        }
-
-        function pauseTimer() {
-            if (isRunning) {
-                clearInterval(timerInterval);
-                isRunning = false;
-                statusElement.textContent = 'Paused';
-                statusElement.className = 'status-paused';
-            }
-        }
-
-        function completeTimer() {
-            if (elapsedTime > 0) {
-                spinCount++;
-                totalDuration += elapsedTime;
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${spinCount}</td>
-                    <td>${formatTime(elapsedTime)}</td>
-                `;
-                spinTableBody.appendChild(row);
-                totalDurationElement.innerHTML = formatTime(totalDuration);
-            }
-            clearInterval(timerInterval);
-            isRunning = false;
-            elapsedTime = 0;
-            document.getElementById('timer').innerHTML = formatTime(0);
-            statusElement.textContent = 'Not Started';
-            statusElement.className = 'status-not-started';
-        }
-
-        document.addEventListener('keydown', (event) => {
-            if (event.code === 'Space') {
-                event.preventDefault();
-                isRunning ? pauseTimer() : startTimer();
-            } else if (event.code === 'Enter') {
-                event.preventDefault();
-                completeTimer();
-            }
-        });
-    </script>
+    <script defer src="script.js"></script>
 </body>
 </html>
