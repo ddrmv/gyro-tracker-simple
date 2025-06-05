@@ -10,11 +10,13 @@
         #status { font-size: 24px; margin-bottom: 20px; }
         button { padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; }
         .decisecond { color: lightgrey; }
+        .instructions { font-size: 14px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div id="timer">00:00:00<span class="decisecond">.0</span></div>
     <div id="status">Not Started</div>
+    <div class="instructions">("space" to start/pause, "enter" to complete spin)</div>
     <button onclick="startTimer()">Start</button>
     <button onclick="resetTimer()">Reset</button>
     <script>
